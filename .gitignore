@@ -1,0 +1,19 @@
+# Dependencias
+node_modules/
+
+# Firma de release — NUNCA subir a control de versiones
+android/keystore.properties
+*.keystore
+*.jks
+
+# Build de Android
+android/app/build/
+android/build/
+android/.gradle/
+android/captures/
+android/.idea/
+android/local.properties
+
+# Varios
+.DS_Store
+Thumbs.db
