@@ -154,7 +154,7 @@ transition:transform .08s ease, box-shadow .08s ease, filter .2s;
 .legend{display:flex; gap:12px; font-size:10.5px; color:var(--bruma); letter-spacing:.04em; flex-wrap:wrap}
 .legend i{display:inline-block; width:9px; height:9px; border-radius:3px; margin-right:4px; vertical-align:middle}
 .legend .lv{background:var(--esmeralda)} .legend .lf{background:var(--carmesi)} .legend .lx{background:#574f6e}
-.board{display:grid; grid-template-columns:repeat(auto-fill, minmax(30px,1fr)); gap:5px; max-height:380px; overflow:auto; padding:2px}
+.board{display:grid; grid-template-columns:repeat(auto-fill, minmax(30px,1fr)); gap:5px; max-height:380px; overflow:auto; padding:2px; touch-action:pan-y; overscroll-behavior:contain}
 .board::-webkit-scrollbar{width:8px}
 .board::-webkit-scrollbar-thumb{background:var(--oro-hondo); border-radius:8px}
 .tile{
@@ -221,6 +221,75 @@ animation:numIn .7s .25s cubic-bezier(.2,1.4,.4,1) both, glowPulse 1.8s 1s ease-
 .btn-ghost{background:transparent; color:var(--marfil); border:1px solid var(--linea) !important}
 .win-actions button:focus-visible{outline:2px solid #fff; outline-offset:3px}
 .footnote{text-align:center; color:var(--bruma); font-size:12px; margin-top:34px; opacity:.7}
+
+/* ===== Botón "Ver tablero" + Modal del tablero ===== */
+.ver-tablero{margin-top:16px; background:transparent; color:var(--oro-claro); border:1px solid var(--linea); border-radius:50px; padding:10px 22px; font-family:var(--texto); font-weight:700; font-size:14px; letter-spacing:.03em; cursor:pointer}
+.ver-tablero:hover{border-color:var(--oro); background:rgba(244,201,93,.08)}
+.ver-tablero:focus-visible{outline:2px solid var(--oro); outline-offset:2px}
+.board-overlay{position:fixed; inset:0; z-index:80; display:none; align-items:center; justify-content:center; background:rgba(6,4,14,.72); backdrop-filter:blur(4px); padding:calc(16px + env(safe-area-inset-top)) 14px calc(16px + env(safe-area-inset-bottom)); touch-action:none}
+.board-overlay.show{display:flex}
+.board-panel{position:relative; width:100%; max-width:520px; max-height:90vh; overflow:hidden; display:flex; flex-direction:column; gap:16px; background:linear-gradient(180deg, rgba(29,22,56,.98), rgba(21,16,43,.99)); border:1px solid var(--linea); border-radius:18px; box-shadow:0 24px 70px rgba(0,0,0,.7); padding:18px; animation:boardIn .42s cubic-bezier(.2,1,.3,1) both}
+.board-overlay.closing{animation:boardFade .4s ease both}
+.board-overlay.closing .board-panel{animation:boardOut .4s ease both}
+@keyframes boardIn{from{opacity:0; transform:translateY(26px) scale(.96)} to{opacity:1; transform:none}}
+@keyframes boardOut{from{opacity:1; transform:none} to{opacity:0; transform:translateY(20px) scale(.97)}}
+@keyframes boardFade{from{opacity:1} to{opacity:0}}
+.board-panel .stats{margin-top:6px}
+.board-panel .board-card{flex:1; min-height:0; display:flex; flex-direction:column}
+.board-panel .board{flex:1}
+.board-x{position:absolute; right:12px; top:12px; z-index:2; background:rgba(21,16,43,.7); border:1px solid var(--linea); color:var(--bruma); width:34px; height:34px; border-radius:50%; font-size:15px; cursor:pointer; display:grid; place-items:center; line-height:1}
+.board-x:hover{color:var(--marfil); border-color:var(--oro)}
+@media (prefers-reduced-motion: reduce){
+.board-panel{animation:none}
+.board-overlay.closing .board-panel{animation:none}
+}
+
+/* ===== Botón excluir + Modal de exclusión ===== */
+.config-actions{display:flex; gap:10px; align-items:center; flex-wrap:nowrap; margin-top:18px}
+.config-actions .create-btn{margin-top:0; white-space:nowrap}
+.config-actions .excl-btn{white-space:nowrap}
+.excl-btn{display:inline-flex; align-items:center; gap:9px; background:rgba(244,201,93,.10); color:var(--oro-claro); border:1px solid var(--linea); border-radius:50px; padding:12px 22px; font-family:var(--texto); font-weight:700; font-size:15px; cursor:pointer}
+.excl-btn:hover{background:rgba(244,201,93,.18); border-color:var(--oro)}
+.excl-btn:focus-visible{outline:2px solid var(--oro); outline-offset:2px}
+.excl-btn-ico{color:var(--carmesi); font-size:17px; line-height:1}
+.excl-badge{background:var(--carmesi); color:#fff; font-size:12px; font-weight:700; border-radius:50px; padding:2px 9px; min-width:22px; text-align:center}
+.exg-overlay{position:fixed; inset:0; z-index:90; display:none; align-items:center; justify-content:center; background:rgba(6,4,14,.74); backdrop-filter:blur(4px); padding:calc(14px + env(safe-area-inset-top)) 14px calc(14px + env(safe-area-inset-bottom)); touch-action:none}
+.exg-overlay.show{display:flex}
+.exg-panel{width:100%; max-width:520px; max-height:88vh; display:flex; flex-direction:column; background:linear-gradient(180deg, rgba(29,22,56,.98), rgba(21,16,43,.99)); border:1px solid var(--linea); border-radius:18px; box-shadow:0 24px 70px rgba(0,0,0,.7); overflow:hidden; animation:exgIn .22s ease both}
+@keyframes exgIn{from{opacity:0; transform:translateY(12px) scale(.98)} to{opacity:1; transform:none}}
+.exg-head{display:flex; align-items:center; justify-content:space-between; padding:16px 18px 6px}
+.exg-head h2{font-family:var(--display); font-weight:400; font-size:22px; letter-spacing:.06em; text-transform:uppercase; color:var(--oro); margin:0}
+.exg-x{background:transparent; border:none; color:var(--bruma); font-size:18px; cursor:pointer; padding:4px 8px; border-radius:8px; line-height:1}
+.exg-x:hover{color:var(--marfil)}
+.exg-hint{margin:0 18px 12px; font-size:13px; color:var(--bruma); line-height:1.45}
+.exg-grid{flex:1; overflow-y:auto; touch-action:pan-y; overscroll-behavior:contain; -webkit-overflow-scrolling:touch; display:grid; grid-template-columns:repeat(auto-fill, minmax(40px,1fr)); gap:6px; padding:2px 18px; min-height:90px}
+.exg-grid::-webkit-scrollbar{width:8px}
+.exg-grid::-webkit-scrollbar-thumb{background:var(--oro-hondo); border-radius:8px}
+.exg-num{aspect-ratio:1/1; display:grid; place-items:center; border-radius:9px; font-size:13px; font-weight:700; font-variant-numeric:tabular-nums; cursor:pointer; user-select:none; -webkit-user-select:none; touch-action:pan-y; background:linear-gradient(180deg,#23314a,#1a2030); color:#e7eef7; border:1px solid rgba(255,255,255,.07); transition:transform .07s ease, background .12s ease, box-shadow .12s ease}
+.exg-num:active{transform:scale(.9)}
+.exg-num.off{background:linear-gradient(180deg,var(--carmesi),#7d1325); color:#fff; border-color:#ff8aa0; box-shadow:0 0 10px rgba(226,59,85,.45)}
+.exg-range{display:flex; align-items:center; gap:8px; flex-wrap:wrap; padding:12px 18px 4px; border-top:1px solid var(--linea); margin-top:8px}
+.exg-range-lab{font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--bruma)}
+.exg-range input{width:84px; background:#100b22; color:var(--marfil); border:1px solid var(--linea); border-radius:9px; padding:9px 10px; font-family:var(--texto); font-size:15px; font-variant-numeric:tabular-nums}
+.exg-range input:focus{outline:2px solid var(--oro); outline-offset:1px; border-color:var(--oro)}
+.exg-dash{color:var(--bruma)}
+.exg-range-add{background:rgba(244,201,93,.14); color:var(--oro-claro); border:1px solid var(--linea); border-radius:50px; padding:8px 16px; font-weight:700; font-size:13px; cursor:pointer}
+.exg-range-add:hover{background:rgba(244,201,93,.22)}
+.exg-foot{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; padding:12px 18px 16px; border-top:1px solid var(--linea); margin-top:10px}
+.exg-count{font-size:13.5px; color:var(--marfil)}
+.exg-count b{color:var(--oro-claro)}
+.exg-foot-actions{display:flex; gap:8px; align-items:center}
+.exg-clear{background:transparent; border:none; color:var(--bruma); font-size:13px; cursor:pointer; text-decoration:underline; padding:8px}
+.exg-clear:hover{color:var(--marfil)}
+.exg-cancel{background:transparent; color:var(--marfil); border:1px solid var(--linea); border-radius:50px; padding:10px 18px; font-weight:700; font-size:14px; cursor:pointer}
+.exg-cancel:hover{border-color:var(--bruma)}
+.exg-accept{background:linear-gradient(180deg,var(--oro-claro),var(--oro-hondo)); color:#3a2806; border:none; border-radius:50px; padding:10px 22px; font-weight:700; font-size:14px; cursor:pointer; box-shadow:0 6px 16px rgba(0,0,0,.4)}
+.exg-accept:hover{filter:brightness(1.05)}
+@media (max-width:440px){
+.exg-grid{grid-template-columns:repeat(auto-fill, minmax(34px,1fr)); gap:5px}
+.exg-num{font-size:12px}
+.exg-range input{width:72px}
+}
 @media (prefers-reduced-motion: reduce){
 .rays{animation:none}
 .glow{animation:flash 1.6s ease-out 1 forwards}
@@ -331,8 +400,8 @@ animation:nameGlow 2s ease-in-out infinite;
 <div class="stage">
 <header>
 <div class="kicker">El gran sorteo en vivo</div>
-<h1 class="title">Ruleta de la Rifa</h1>
-<p class="subtitle" id="subtitle">Configura el rango y gira la ruleta.</p>
+<h1 class="title">GG Lucky</h1>
+<p class="subtitle" id="subtitle">Configura tu sorteo y gira la ruleta.</p>
 </header>
 <!-- Configuración del sorteo -->
 <section class="config open" id="config">
@@ -349,19 +418,19 @@ animation:nameGlow 2s ease-in-out infinite;
 <label for="inMax">Hasta</label>
 <input id="inMax" type="number" inputmode="numeric" value="200">
 </div>
-<div class="field grow">
-<label for="inExcl">Excluir números (opcional)</label>
-<input id="inExcl" type="text" placeholder="Ej: 43, 48, 49, 195 · también vale un rango: 80-90">
 </div>
-</div>
-<div class="summary" id="summary"></div>
-<div class="plan" id="planLine"></div>
+<input id="inExcl" type="hidden" value="">
 <div class="error" id="error" hidden></div>
+<div class="config-actions">
+<button type="button" class="excl-btn" id="exclBtn">
+<span class="excl-btn-ico">⊘</span>
+<span class="excl-btn-txt">Excluir Nº</span>
+<span class="excl-badge" id="exclBadge" hidden>0</span>
+</button>
 <button class="create-btn" id="createBtn">Crear ruleta</button>
 </div>
+</div>
 </section>
-<div class="grid">
-<!-- Ruleta -->
 <div class="wheel-col">
 <div class="wheel-wrap">
 <div class="rim"></div>
@@ -372,9 +441,29 @@ animation:nameGlow 2s ease-in-out infinite;
 </div>
 <button class="spin-btn" id="spinBtn">Girar</button>
 <button class="spin-btn replay" id="replayBtn">Jugar de nuevo</button>
+<button class="ver-tablero" id="openBoardBtn">▦ Ver tablero</button>
 </div>
-<!-- Panel -->
-<div class="panel">
+<p class="footnote">Cada eliminación se hace con una baraja aleatoria justa. Edita la configuración cuando quieras.</p>
+</div>
+<canvas id="confetti"></canvas>
+<div class="winner-overlay" id="winOverlay" role="dialog" aria-live="assertive">
+<div class="destello"><div class="rays"></div><div class="glow"></div></div>
+<div class="sparkles" id="sparkles"></div>
+<div class="winner-inner">
+<div class="win-eyebrow">✦ Número ganador ✦</div>
+<div class="win-label">¡Felicidades!</div>
+<div class="win-number" id="winNumber">0</div>
+</div>
+<div class="win-actions">
+<button class="btn-primary" id="seeBoard">Ver el tablero</button>
+<button class="btn-ghost" id="playAgain">Jugar de nuevo</button>
+</div>
+</div>
+
+<!-- Modal: tablero -->
+<div class="board-overlay" id="boardOverlay" role="dialog" aria-modal="true" aria-labelledby="boardTitle">
+<div class="board-panel">
+<button class="board-x" id="boardClose" aria-label="Cerrar">✕</button>
 <div class="stats">
 <div class="stat vivos"><div class="num" id="sVivos">0</div><div class="lab">Quedan</div></div>
 <div class="stat fuera"><div class="num" id="sFuera">0</div><div class="lab">Eliminados</div></div>
@@ -393,22 +482,34 @@ animation:nameGlow 2s ease-in-out infinite;
 </div>
 </div>
 </div>
-<p class="footnote">Cada eliminación se hace con una baraja aleatoria justa. Edita la configuración cuando quieras.</p>
+
+<!-- Modal: excluir números -->
+<div class="exg-overlay" id="exgOverlay" role="dialog" aria-modal="true" aria-labelledby="exgTitle">
+<div class="exg-panel">
+<div class="exg-head">
+<h2 id="exgTitle">Excluir números</h2>
+<button class="exg-x" id="exgClose" aria-label="Cerrar">✕</button>
 </div>
-<canvas id="confetti"></canvas>
-<div class="winner-overlay" id="winOverlay" role="dialog" aria-live="assertive">
-<div class="destello"><div class="rays"></div><div class="glow"></div></div>
-<div class="sparkles" id="sparkles"></div>
-<div class="winner-inner">
-<div class="win-eyebrow">✦ Número ganador ✦</div>
-<div class="win-label">¡Felicidades!</div>
-<div class="win-number" id="winNumber">0</div>
+<p class="exg-hint">Excluye tocando los números. Mantené presionado y deslizá para marcar varios de una. Tocá uno rojo para quitarlo.</p>
+<div class="exg-grid" id="exgGrid"></div>
+<div class="exg-range">
+<span class="exg-range-lab">Excluir rango</span>
+<input id="exgFrom" type="number" inputmode="numeric" placeholder="desde">
+<span class="exg-dash">–</span>
+<input id="exgTo" type="number" inputmode="numeric" placeholder="hasta">
+<button class="exg-range-add" id="exgRangeAdd">Excluir</button>
 </div>
-<div class="win-actions">
-<button class="btn-primary" id="seeBoard">Ver el tablero</button>
-<button class="btn-ghost" id="playAgain">Jugar de nuevo</button>
+<div class="exg-foot">
+<span class="exg-count" id="exgCount">Ninguno excluido</span>
+<div class="exg-foot-actions">
+<button class="exg-clear" id="exgClear">Limpiar</button>
+<button class="exg-cancel" id="exgCancel">Cancelar</button>
+<button class="exg-accept" id="exgAccept">Aceptar</button>
 </div>
 </div>
+</div>
+</div>
+
 <script>
 "use strict";
 /* ====================== Estado ====================== */
@@ -540,6 +641,7 @@ return { tick, whoosh, riser, fanfare, toggle, kickoff, isMuted:()=>muted, hasSt
 })();
 /* ====================== Refs ====================== */
 const boardEl=document.getElementById('board');
+const boardOverlay=document.getElementById('boardOverlay');
 const canvas=document.getElementById('wheel');
 const ctx2d=canvas.getContext('2d');
 const spinBtn=document.getElementById('spinBtn');
@@ -556,8 +658,6 @@ const configToggle=document.getElementById('configToggle');
 const inMin=document.getElementById('inMin');
 const inMax=document.getElementById('inMax');
 const inExcl=document.getElementById('inExcl');
-const summaryEl=document.getElementById('summary');
-const planEl=document.getElementById('planLine');
 const errorEl=document.getElementById('error');
 const createBtn=document.getElementById('createBtn');
 const soundBtn=document.getElementById('soundBtn');
@@ -606,16 +706,10 @@ return {min,max,exclSet:set,ignored,basePool:pool};
 function showError(msg){ errorEl.textContent=msg; errorEl.hidden=false; }
 function hideError(){ errorEl.hidden=true; }
 function updateSummary(){
+updateExclBadge();
 const cfg=readConfig();
-if(cfg.error){ summaryEl.innerHTML=''; planEl.innerHTML=''; showError(cfg.error); createBtn.disabled=true; return; }
+if(cfg.error){ showError(cfg.error); createBtn.disabled=true; return; }
 hideError(); createBtn.disabled=false;
-const span=cfg.max-cfg.min+1, excl=span-cfg.basePool.length;
-let s='Rango <b>'+cfg.min+'–'+cfg.max+'</b> ('+span+' números)';
-s += excl>0 ? ' − <b>'+excl+'</b> excluidos = <b>'+cfg.basePool.length+'</b> en juego'
-: ' = <b>'+cfg.basePool.length+'</b> en juego';
-if(cfg.ignored>0) s+=' <span style="color:var(--bruma)">(se ignoraron '+cfg.ignored+' fuera del rango)</span>';
-summaryEl.innerHTML=s;
-planEl.innerHTML=planDescription(cfg.basePool.length, buildPlan(cfg.basePool.length));
 }
 function buildFromConfig(){
 const cfg=readConfig();
@@ -737,18 +831,23 @@ sVivos.textContent=remaining.length; sFuera.textContent=eliminatedCount;
 sFase.innerHTML=vueltaActual+'<span style="font-size:16px">/'+totalVueltas+'</span>';
 }
 function setPhaseUI(){
-if(vueltaActual<=plan.length){
-const keep=plan[vueltaActual-1], elim=remaining.length-keep;
-subtitle.innerHTML='Vuelta '+vueltaActual+' de '+totalVueltas+' · La ruleta eliminará <b>'+elim+' números</b> (quedan '+keep+').';
-spinBtn.textContent='Girar — Vuelta '+vueltaActual;
-} else {
-const f=remaining.length;
-subtitle.innerHTML = f<=1 ? 'Queda <b>1</b> número en juego: ¡es el ganador!'
-: 'Vuelta final · De los <b>'+f+' finalistas</b> sale el <b>número ganador</b>.';
-spinBtn.textContent='Girar — Vuelta final';
-}
+subtitle.innerHTML = totalVueltas<=1
+? 'Una sola vuelta · gira y sale el <b>ganador</b>.'
+: 'Ruleta de <b>'+totalVueltas+' vueltas</b> · en la última sale el <b>ganador</b>.';
+spinBtn.textContent = vueltaActual<=plan.length ? 'Girar — Vuelta '+vueltaActual : 'Girar — Vuelta final';
 }
 /* ====================== Flujo ====================== */
+function openBoard(){
+boardOverlay.classList.remove('closing');
+boardOverlay.classList.add('show');
+document.body.style.overflow='hidden';
+}
+function closeBoard(){
+if(!boardOverlay.classList.contains('show')) return;
+boardOverlay.classList.add('closing');
+document.body.style.overflow='';
+setTimeout(()=>boardOverlay.classList.remove('show','closing'), reduceMotion?120:400);
+}
 function onSpin(){
 if(spinning) return;
 Audio.kickoff(); syncSoundBtn();
@@ -758,7 +857,7 @@ const keep=plan[vueltaActual-1];
 subtitle.innerHTML='Girando…';
 const spins=4+randInt(3), dur=reduceMotion?2200:4200+randInt(800);
 const target=currentDeg+spins*360+randInt(360);
-spinTo(target,dur,()=>runElimination(keep));
+spinTo(target,dur,()=>{ openBoard(); setTimeout(()=>runElimination(keep), reduceMotion?180:480); });
 } else { doFinal(); }
 }
 function runElimination(keep){
@@ -781,9 +880,15 @@ killNext();
 function finishElimination(survivors){
 remaining=survivors; wheelNumbers=survivors.slice();
 eliminatedCount=basePool.length-remaining.length;
+updateStats();
+setTimeout(()=>{
+closeBoard();
+setTimeout(()=>{
 currentDeg=0; canvas.style.transform='rotate(0deg)'; drawWheel();
 vueltaActual+=1; updateStats(); setPhaseUI();
 spinning=false; spinBtn.disabled=false; createBtn.disabled=false; bulbsChase(false);
+}, reduceMotion?140:430);
+}, reduceMotion?700:1500);
 }
 function doFinal(){
 subtitle.innerHTML='¡Suspenso! Saliendo el ganador…';
@@ -817,6 +922,7 @@ canvas.style.transform='rotate(0deg)'; drawWheel();
 updateStats(); setPhaseUI();
 spinBtn.style.display='inline-block'; spinBtn.disabled=false; replayBtn.style.display='none';
 winOverlay.classList.remove('show'); stopConfetti();
+boardOverlay.classList.remove('show','closing'); document.body.style.overflow='';
 }
 /* ====================== Sonido (botón) ====================== */
 function syncSoundBtn(){
@@ -830,15 +936,157 @@ soundBtn.addEventListener('click',()=>{ if(!Audio.hasStarted()) Audio.kickoff();
 spinBtn.addEventListener('click',onSpin);
 replayBtn.addEventListener('click',resetAll);
 document.getElementById('playAgain').addEventListener('click',resetAll);
-document.getElementById('seeBoard').addEventListener('click',()=>{ winOverlay.classList.remove('show'); stopConfetti(); });
+document.getElementById('seeBoard').addEventListener('click',()=>{ winOverlay.classList.remove('show'); stopConfetti(); openBoard(); });
+document.getElementById('openBoardBtn').addEventListener('click',openBoard);
+document.getElementById('boardClose').addEventListener('click',closeBoard);
+boardOverlay.addEventListener('click',e=>{ if(e.target===boardOverlay) closeBoard(); });
+window.addEventListener('keydown',e=>{ if(e.key==='Escape' && boardOverlay.classList.contains('show')) closeBoard(); });
 createBtn.addEventListener('click',applyConfig);
 configToggle.addEventListener('click',()=> setConfigOpen(!config.classList.contains('open')));
-[inMin,inMax,inExcl].forEach(el=>{
+[inMin,inMax].forEach(el=>{
 el.addEventListener('input',updateSummary);
 el.addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); applyConfig(); } });
 });
 let resizeTO=null;
 window.addEventListener('resize',()=>{ clearTimeout(resizeTO); resizeTO=setTimeout(()=>{ setupCanvas(); if(confettiCanvas.style.display==='block'){ confettiCanvas.width=window.innerWidth; confettiCanvas.height=window.innerHeight; } },150); });
+/* ====================== Modal: excluir números ====================== */
+const exclBtn=document.getElementById('exclBtn');
+const exclBadge=document.getElementById('exclBadge');
+const exclTxt=exclBtn.querySelector('.excl-btn-txt');
+const exgOverlay=document.getElementById('exgOverlay');
+const exgGrid=document.getElementById('exgGrid');
+const exgFrom=document.getElementById('exgFrom');
+const exgTo=document.getElementById('exgTo');
+const exgCount=document.getElementById('exgCount');
+let exDraft=new Set(), exMin=1, exMax=200;
+const exCells=new Map();
+let exPainting=false, exPaintVal=true, exAnchor=null, exDragLo=null, exDragHi=null, exDragBase=null, exLastX=0, exLastY=0, exScrollRAF=null, exEdgeDir=0;
+let exMode='none', exStartX=0, exStartY=0, exPointerType='touch', exPointerId=null;
+
+function serializeExclusions(set){
+const arr=[...set].sort((a,b)=>a-b); const parts=[]; let i=0;
+while(i<arr.length){ let j=i; while(j+1<arr.length && arr[j+1]===arr[j]+1) j++;
+parts.push(j>i ? arr[i]+'-'+arr[j] : String(arr[i])); i=j+1; }
+return parts.join(', ');
+}
+function updateExclBadge(){
+const min=parseInt(inMin.value,10), max=parseInt(inMax.value,10); let c=0;
+if(!isNaN(min)&&!isNaN(max)&&min<=max) c=parseExclusions(inExcl.value,min,max).set.size;
+if(c>0){ exclBadge.textContent=c; exclBadge.hidden=false; }
+else { exclBadge.hidden=true; }
+}
+function exUpdateCount(){
+const c=exDraft.size;
+exgCount.innerHTML = c===0 ? 'Ninguno excluido' : '<b>'+c+'</b> '+(c===1?'excluido':'excluidos');
+}
+function exSet(n,on){ if(on) exDraft.add(n); else exDraft.delete(n); const el=exCells.get(n); if(el) el.classList.toggle('off',on); }
+function exBuildGrid(){
+exgGrid.innerHTML=''; exCells.clear();
+const frag=document.createDocumentFragment();
+for(let n=exMin;n<=exMax;n++){
+const d=document.createElement('div');
+d.className='exg-num'+(exDraft.has(n)?' off':''); d.dataset.n=n; d.textContent=n;
+frag.appendChild(d); exCells.set(n,d);
+}
+exgGrid.appendChild(frag);
+}
+function exOpen(){
+const min=parseInt(inMin.value,10), max=parseInt(inMax.value,10);
+if(isNaN(min)||isNaN(max)||min>max){ showError('Define un rango válido en “Desde” y “Hasta” antes de excluir.'); return; }
+if(max-min+1>MAX_POOL){ showError('El rango supera el máximo de '+MAX_POOL+' números.'); return; }
+hideError(); exMin=min; exMax=max;
+exDraft=parseExclusions(inExcl.value,min,max).set;
+exBuildGrid(); exUpdateCount();
+exgFrom.value=''; exgTo.value='';
+exgOverlay.classList.add('show');
+document.body.style.overflow='hidden';
+}
+function exClose(){ exgOverlay.classList.remove('show'); document.body.style.overflow=''; exPainting=false; exMode='none'; }
+function exAccept(){ inExcl.value=serializeExclusions(exDraft); updateSummary(); exClose(); }
+function exClear(){ exDraft.forEach(n=>{ const el=exCells.get(n); if(el) el.classList.remove('off'); }); exDraft.clear(); exUpdateCount(); }
+function exAddRange(){
+let a=parseInt(exgFrom.value,10), b=parseInt(exgTo.value,10);
+if(isNaN(a)&&isNaN(b)) return;
+if(isNaN(a)) a=b; if(isNaN(b)) b=a;
+if(a>b)[a,b]=[b,a];
+a=Math.max(exMin,a); b=Math.min(exMax,b);
+for(let v=a;v<=b;v++) exSet(v,true);
+exUpdateCount(); exgFrom.value=''; exgTo.value='';
+}
+function exTileAt(x,y){ const el=document.elementFromPoint(x,y); return (el&&el.classList.contains('exg-num'))?el:null; }
+function exApplyDrag(curN){
+const lo=Math.min(exAnchor,curN), hi=Math.max(exAnchor,curN);
+if(lo===exDragLo && hi===exDragHi) return;
+const from=Math.min(lo,exDragLo), to=Math.max(hi,exDragHi);
+for(let n=from;n<=to;n++){
+const desired=(n>=lo&&n<=hi)?exPaintVal:exDragBase.has(n);
+if(exDraft.has(n)!==desired) exSet(n,desired);
+}
+exDragLo=lo; exDragHi=hi; exUpdateCount();
+}
+function exEdgeLoop(){
+if(!exPainting || exEdgeDir===0){ exScrollRAF=null; return; }
+const before=exgGrid.scrollTop; exgGrid.scrollTop+=exEdgeDir*10;
+if(exgGrid.scrollTop!==before){ const t=exTileAt(exLastX,exLastY); if(t) exApplyDrag(+t.dataset.n); }
+exScrollRAF=requestAnimationFrame(exEdgeLoop);
+}
+function exUpdateEdge(y){
+const r=exgGrid.getBoundingClientRect(), M=38;
+exEdgeDir = y<r.top+M ? -1 : (y>r.bottom-M ? 1 : 0);
+if(exEdgeDir!==0 && !exScrollRAF && exPainting) exScrollRAF=requestAnimationFrame(exEdgeLoop);
+}
+function exStartSelect(){
+exPainting=true;
+exPaintVal=!exDraft.has(exAnchor); exDragBase=new Set(exDraft);
+exDragLo=exAnchor; exDragHi=exAnchor;
+exSet(exAnchor,exPaintVal); exUpdateCount();
+}
+function exEndDrag(){ exPainting=false; exMode='none'; exEdgeDir=0; if(exScrollRAF){ cancelAnimationFrame(exScrollRAF); exScrollRAF=null; } }
+exgGrid.addEventListener('pointerdown',e=>{
+const t=e.target.closest('.exg-num'); if(!t || exMode!=='none') return;
+exAnchor=+t.dataset.n; exStartX=e.clientX; exStartY=e.clientY; exLastX=e.clientX; exLastY=e.clientY;
+exPointerType=e.pointerType||'touch'; exPointerId=e.pointerId; exMode='pending';
+});
+exgGrid.addEventListener('pointermove',e=>{
+if(exMode==='none' || exMode==='scroll') return;
+if(exMode==='pending'){
+const dx=e.clientX-exStartX, dy=e.clientY-exStartY;
+if(Math.hypot(dx,dy)<8) return;
+// Galería-style: en touch, el primer movimiento decide. Horizontal => seleccionar; vertical => scroll.
+if(exPointerType!=='touch' || Math.abs(dx)>=Math.abs(dy)){
+exMode='select';
+try{ exgGrid.setPointerCapture(exPointerId); }catch(_){}
+exStartSelect();
+const t=exTileAt(e.clientX,e.clientY); if(t) exApplyDrag(+t.dataset.n);
+} else {
+exMode='scroll'; // dejar que la grilla haga su scroll nativo
+}
+return;
+}
+// exMode==='select'
+e.preventDefault();
+exLastX=e.clientX; exLastY=e.clientY;
+const t=exTileAt(e.clientX,e.clientY); if(t) exApplyDrag(+t.dataset.n);
+exUpdateEdge(e.clientY);
+});
+window.addEventListener('pointerup',()=>{
+if(exMode==='pending'){ exSet(exAnchor, !exDraft.has(exAnchor)); exUpdateCount(); }
+exEndDrag();
+});
+window.addEventListener('pointercancel',exEndDrag);
+exclBtn.addEventListener('click',exOpen);
+document.getElementById('exgClose').addEventListener('click',exClose);
+document.getElementById('exgCancel').addEventListener('click',exClose);
+document.getElementById('exgAccept').addEventListener('click',exAccept);
+document.getElementById('exgClear').addEventListener('click',exClear);
+document.getElementById('exgRangeAdd').addEventListener('click',exAddRange);
+[exgFrom,exgTo].forEach(el=>{
+el.addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); exAddRange(); } });
+el.addEventListener('change',()=>{ if(exgFrom.value!==''&&exgTo.value!=='') exAddRange(); });
+});
+exgOverlay.addEventListener('click',e=>{ if(e.target===exgOverlay) exClose(); });
+window.addEventListener('keydown',e=>{ if(e.key==='Escape'&&exgOverlay.classList.contains('show')) exClose(); });
+
 /* ====================== Init ====================== */
 buildBulbs();
 updateSummary();

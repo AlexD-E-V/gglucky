@@ -1,6 +1,9 @@
 # Dependencias
 node_modules/
 
+# Config local de Claude (preview, etc.)
+.claude/
+
 # Firma de release — NUNCA subir a control de versiones
 android/keystore.properties
 *.keystore
