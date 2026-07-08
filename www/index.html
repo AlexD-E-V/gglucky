@@ -209,6 +209,7 @@ background:linear-gradient(180deg, #fff 0%, var(--oro-claro) 30%, var(--oro) 60%
 filter:drop-shadow(0 0 30px rgba(244,201,93,.85)) drop-shadow(0 6px 0 rgba(0,0,0,.4));
 animation:numIn .7s .25s cubic-bezier(.2,1.4,.4,1) both, glowPulse 1.8s 1s ease-in-out infinite;
 }
+.win-name{font-family:var(--display); font-weight:400; text-transform:uppercase; letter-spacing:.05em; font-size:clamp(24px,7vw,54px); color:var(--oro-claro); text-shadow:0 0 18px rgba(244,201,93,.6); margin-top:6px; animation:popIn .5s .5s both}
 @keyframes numIn{0%{transform:scale(0) rotate(-12deg); opacity:0}100%{transform:scale(1) rotate(0); opacity:1}}
 @keyframes popIn{0%{transform:translateY(14px); opacity:0}100%{transform:translateY(0); opacity:1}}
 @keyframes glowPulse{50%{filter:drop-shadow(0 0 48px rgba(255,236,175,1)) drop-shadow(0 6px 0 rgba(0,0,0,.4))}}
@@ -252,8 +253,8 @@ animation:numIn .7s .25s cubic-bezier(.2,1.4,.4,1) both, glowPulse 1.8s 1s ease-
 }
 
 /* ===== Botón excluir + Modal de exclusión ===== */
-.config-actions{display:flex; gap:10px; align-items:center; flex-wrap:nowrap; margin-top:18px}
-.config-actions .create-btn{margin-top:0; white-space:nowrap}
+.config-actions{display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top:18px}
+.config-actions .create-btn{margin-top:0; white-space:nowrap; flex:1 1 auto; min-width:150px}
 .config-actions .excl-btn{white-space:nowrap}
 .excl-btn{display:inline-flex; align-items:center; gap:9px; background:rgba(244,201,93,.10); color:var(--oro-claro); border:1px solid var(--linea); border-radius:50px; padding:12px 22px; font-family:var(--texto); font-weight:700; font-size:15px; cursor:pointer}
 .excl-btn:hover{background:rgba(244,201,93,.18); border-color:var(--oro)}
@@ -297,6 +298,23 @@ animation:numIn .7s .25s cubic-bezier(.2,1.4,.4,1) both, glowPulse 1.8s 1s ease-
 .exg-num{font-size:12px}
 .exg-range input{width:72px}
 }
+
+/* ===== Modal: poner nombres ===== */
+.names-ico{color:var(--esmeralda)}
+.names-badge{background:var(--esmeralda); color:#083322}
+.exg-panel{position:relative}
+.nm-list{flex:1; overflow-y:auto; touch-action:pan-y; overscroll-behavior:contain; -webkit-overflow-scrolling:touch; display:flex; flex-direction:column; gap:7px; padding:2px 18px; min-height:90px}
+.nm-list::-webkit-scrollbar{width:8px}
+.nm-list::-webkit-scrollbar-thumb{background:var(--oro-hondo); border-radius:8px}
+.nm-row{display:flex; align-items:center; gap:10px}
+.nm-num{flex:0 0 54px; text-align:center; padding:10px 0; border-radius:9px; font-size:13px; font-weight:700; font-variant-numeric:tabular-nums; background:linear-gradient(180deg,#23314a,#1a2030); color:#e7eef7; border:1px solid rgba(255,255,255,.07)}
+.nm-input{flex:1; min-width:0; background:#100b22; color:var(--marfil); border:1px solid var(--linea); border-radius:9px; padding:10px 12px; font-family:var(--texto); font-size:15px}
+.nm-input::placeholder{color:#564d70}
+.nm-input:focus{outline:2px solid var(--oro); outline-offset:1px; border-color:var(--oro)}
+.nm-row.off .nm-num{background:repeating-linear-gradient(45deg,#161226,#161226 4px,#1d1733 4px,#1d1733 8px); color:#5b5374; border-color:rgba(255,255,255,.05)}
+.nm-row.off .nm-input{opacity:.4; pointer-events:none}
+.nm-toast{position:absolute; left:50%; bottom:84px; transform:translateX(-50%); background:linear-gradient(180deg,var(--carmesi),#a81f38); color:#fff; padding:10px 18px; border-radius:50px; font-size:13px; font-weight:700; white-space:nowrap; box-shadow:0 10px 24px rgba(0,0,0,.55); z-index:6; animation:toastIn .22s ease both; pointer-events:none}
+@keyframes toastIn{from{opacity:0; transform:translate(-50%,10px)} to{opacity:1; transform:translate(-50%,0)}}
 @media (prefers-reduced-motion: reduce){
 .rays{animation:none}
 .glow{animation:flash 1.6s ease-out 1 forwards}
@@ -444,6 +462,11 @@ animation:nameGlow 2s ease-in-out infinite;
 <span class="excl-btn-txt">Excluir Nº</span>
 <span class="excl-badge" id="exclBadge" hidden>0</span>
 </button>
+<button type="button" class="excl-btn" id="namesBtn">
+<span class="excl-btn-ico names-ico">✎</span>
+<span class="excl-btn-txt">Poner nombres</span>
+<span class="excl-badge names-badge" id="namesBadge" hidden>0</span>
+</button>
 <button class="create-btn" id="createBtn">Crear ruleta</button>
 </div>
 </div>
@@ -460,6 +483,7 @@ animation:nameGlow 2s ease-in-out infinite;
 <div class="win-eyebrow">✦ Número ganador ✦</div>
 <div class="win-label">¡Felicidades!</div>
 <div class="win-number" id="winNumber">0</div>
+<div class="win-name" id="winName" hidden></div>
 </div>
 <div class="win-actions">
 <button class="btn-primary" id="seeBoard">Ver el tablero</button>
@@ -514,6 +538,27 @@ animation:nameGlow 2s ease-in-out infinite;
 <button class="exg-accept" id="exgAccept">Aceptar</button>
 </div>
 </div>
+</div>
+</div>
+
+<!-- Modal: poner nombres -->
+<div class="exg-overlay" id="nmOverlay" role="dialog" aria-modal="true" aria-labelledby="nmTitle">
+<div class="exg-panel">
+<div class="exg-head">
+<h2 id="nmTitle">Poner nombres</h2>
+<button class="exg-x" id="nmClose" aria-label="Cerrar">✕</button>
+</div>
+<p class="exg-hint">Escribe un nombre junto al número que quieras. Es opcional: los que dejes vacíos participan solo con su número.</p>
+<div class="nm-list" id="nmList"></div>
+<div class="exg-foot">
+<span class="exg-count" id="nmCount">Sin nombres</span>
+<div class="exg-foot-actions">
+<button class="exg-clear" id="nmClear">Limpiar</button>
+<button class="exg-cancel" id="nmCancel">Cancelar</button>
+<button class="exg-accept" id="nmAccept">Aceptar</button>
+</div>
+</div>
+<div class="nm-toast" id="nmToast" hidden></div>
 </div>
 </div>
 
@@ -717,6 +762,7 @@ function showError(msg){ errorEl.textContent=msg; errorEl.hidden=false; }
 function hideError(){ errorEl.hidden=true; }
 function updateSummary(){
 updateExclBadge();
+updateNamesBadge();
 const cfg=readConfig();
 if(cfg.error){ showError(cfg.error); createBtn.disabled=true; return; }
 hideError(); createBtn.disabled=false;
@@ -915,9 +961,12 @@ function revealWinner(num){
 spinning=false; bulbsChase(false); createBtn.disabled=false;
 tileState(num,'winner');
 const t=cells.get(num); if(t) t.scrollIntoView({block:'nearest',behavior:'smooth'});
-winNumber.textContent=num; buildSparkles();
+const wn=nameMap.get(num)||'';
+winNumber.textContent=num;
+winName.textContent=wn; winName.hidden=!wn;
+buildSparkles();
 winOverlay.classList.add('show'); startConfetti(); Audio.fanfare();
-subtitle.innerHTML='🎉 ¡Tenemos ganador! El número <b>'+num+'</b>.';
+subtitle.innerHTML='🎉 ¡Tenemos ganador! El número <b>'+num+'</b>'+(wn?' — <b>'+escHTML(wn)+'</b>':'')+'.';
 spinBtn.style.display='none'; replayBtn.style.display='inline-block';
 }
 function buildSparkles(){
@@ -1032,7 +1081,11 @@ exgOverlay.classList.add('show');
 document.body.style.overflow='hidden';
 }
 function exClose(){ exgOverlay.classList.remove('show'); document.body.style.overflow=''; exPainting=false; exMode='none'; }
-function exAccept(){ inExcl.value=serializeExclusions(exDraft); updateSummary(); exClose(); }
+function exAccept(){
+inExcl.value=serializeExclusions(exDraft); updateSummary();
+if(!spinning) buildFromConfig(); // aplicar de inmediato, sin esperar a "Crear ruleta"
+exClose();
+}
 function exClear(){ exDraft.forEach(n=>{ const el=exCells.get(n); if(el) el.classList.remove('off'); }); exDraft.clear(); exUpdateCount(); }
 function exAddRange(){
 let a=parseInt(exgFrom.value,10), b=parseInt(exgTo.value,10);
@@ -1116,6 +1169,73 @@ el.addEventListener('change',()=>{ if(exgFrom.value!==''&&exgTo.value!=='') exAd
 });
 exgOverlay.addEventListener('click',e=>{ if(e.target===exgOverlay) exClose(); });
 window.addEventListener('keydown',e=>{ if(e.key==='Escape'&&exgOverlay.classList.contains('show')) exClose(); });
+
+/* ====================== Modal: poner nombres ====================== */
+const nameMap=new Map(); // número -> nombre (opcional)
+const namesBtn=document.getElementById('namesBtn');
+const namesBadge=document.getElementById('namesBadge');
+const nmOverlay=document.getElementById('nmOverlay');
+const nmList=document.getElementById('nmList');
+const nmCount=document.getElementById('nmCount');
+const nmToastEl=document.getElementById('nmToast');
+const winName=document.getElementById('winName');
+let nmToastTimer=null;
+function escHTML(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function nmToast(msg){
+nmToastEl.textContent=msg; nmToastEl.hidden=false;
+clearTimeout(nmToastTimer); nmToastTimer=setTimeout(()=>{ nmToastEl.hidden=true; },1800);
+}
+function nmUpdateCount(){
+let c=0; nmList.querySelectorAll('.nm-input').forEach(i=>{ if(!i.disabled && i.value.trim()) c++; });
+nmCount.innerHTML = c===0 ? 'Sin nombres' : '<b>'+c+'</b> '+(c===1?'número con nombre':'números con nombre');
+}
+function updateNamesBadge(){
+const min=parseInt(inMin.value,10), max=parseInt(inMax.value,10); let c=0;
+if(!isNaN(min)&&!isNaN(max)&&min<=max) nameMap.forEach((v,k)=>{ if(k>=min&&k<=max&&v) c++; });
+if(c>0){ namesBadge.textContent=c; namesBadge.hidden=false; } else namesBadge.hidden=true;
+}
+function nmOpen(){
+const min=parseInt(inMin.value,10), max=parseInt(inMax.value,10);
+if(isNaN(min)||isNaN(max)||min>max){ showError('Define un rango válido en “Desde” y “Hasta” antes de poner nombres.'); return; }
+if(max-min+1>MAX_POOL){ showError('El rango supera el máximo de '+MAX_POOL+' números.'); return; }
+hideError();
+const excl=parseExclusions(inExcl.value,min,max).set;
+const frag=document.createDocumentFragment();
+for(let n=min;n<=max;n++){
+const off=excl.has(n);
+const row=document.createElement('div'); row.className='nm-row'+(off?' off':''); row.dataset.n=n;
+const num=document.createElement('div'); num.className='nm-num'; num.textContent=n;
+const inp=document.createElement('input'); inp.className='nm-input'; inp.type='text'; inp.maxLength=24;
+inp.placeholder=off?'Excluido':'Nombre (opcional)';
+inp.value=off?'':(nameMap.get(n)||'');
+if(off) inp.disabled=true;
+row.appendChild(num); row.appendChild(inp); frag.appendChild(row);
+}
+nmList.innerHTML=''; nmList.appendChild(frag);
+nmUpdateCount();
+nmOverlay.classList.add('show');
+document.body.style.overflow='hidden';
+}
+function nmClose(){ nmOverlay.classList.remove('show'); document.body.style.overflow=''; nmToastEl.hidden=true; }
+function nmAcceptFn(){
+nmList.querySelectorAll('.nm-row').forEach(row=>{
+const n=+row.dataset.n, inp=row.querySelector('.nm-input');
+if(inp.disabled) return;
+const v=inp.value.trim();
+if(v) nameMap.set(n,v); else nameMap.delete(n);
+});
+updateNamesBadge(); nmClose();
+}
+function nmClearFn(){ nmList.querySelectorAll('.nm-input').forEach(i=>{ if(!i.disabled) i.value=''; }); nmUpdateCount(); }
+nmList.addEventListener('input',e=>{ if(e.target.classList.contains('nm-input')) nmUpdateCount(); });
+nmList.addEventListener('pointerdown',e=>{ const row=e.target.closest('.nm-row.off'); if(row) nmToast('Tú excluiste el número '+row.dataset.n); });
+namesBtn.addEventListener('click',nmOpen);
+document.getElementById('nmClose').addEventListener('click',nmClose);
+document.getElementById('nmCancel').addEventListener('click',nmClose);
+document.getElementById('nmAccept').addEventListener('click',nmAcceptFn);
+document.getElementById('nmClear').addEventListener('click',nmClearFn);
+nmOverlay.addEventListener('click',e=>{ if(e.target===nmOverlay) nmClose(); });
+window.addEventListener('keydown',e=>{ if(e.key==='Escape'&&nmOverlay.classList.contains('show')) nmClose(); });
 
 /* ====================== Init ====================== */
 buildBulbs();
