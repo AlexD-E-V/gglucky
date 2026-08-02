@@ -73,11 +73,18 @@ La firma requiere dos archivos que **no están en el repo** (ver `.gitignore`):
 - [x] **GitHub Pages activado** — política de privacidad publicada y verificada en
       <https://alexd-e-v.github.io/gglucky/privacy-policy.html>
 
+- [x] **Prueba interna publicada**: `.aab` subido, **Play App Signing aceptado**, app instalada desde Google Play en dispositivo físico y verificada funcionando. El keystore y la cadena de firma quedan validados.
+- [x] Capturas de pantalla tomadas desde la build instalada de Play.
+
 **⏳ En curso — aquí nos quedamos**
-- [ ] Subir el `.aab` a **Pruebas internas**, aceptar **Play App Signing**, instalar desde Play y verificar que la build firmada arranca bien.
+- [ ] **Completar la ficha de Play Store**, en este orden:
+  1. Cambiar el idioma predeterminado a **Español (Latinoamérica) – es-419** y quitar `en-US`
+     (desplegable de idioma → **Gestionar idiomas**). El cambio no persiste hasta guardar.
+  2. Pegar los textos de [`store/ficha-play-store.md`](store/ficha-play-store.md) y subir ícono,
+     gráfico destacado y capturas.
 
 **📋 Pendiente (en este orden)**
-- [ ] Ficha aún en **`en-US`**: cambiar el idioma predeterminado a **Español (Latinoamérica) – es-419** y quitar `en-US` (desplegable de idioma → **Gestionar idiomas**). El cambio no persiste hasta guardar, y puede que Play exija la ficha es-419 completa antes de aceptarlo como predeterminado — en ese caso se hace junto con el llenado de la ficha.
+- [ ] **Contenido de la aplicación** (sección aparte de la ficha): URL de política de privacidad, acceso a la app, anuncios, clasificación IARC, público objetivo y seguridad de datos. Respuestas sugeridas en `store/ficha-play-store.md`.
 - [ ] Sacar capturas de pantalla desde el teléfono (mínimo 2, mejor 4): ruleta principal, tablero tras una vuelta, modal de excluir números, overlay del ganador.
 - [ ] Completar la ficha de Play Store con los textos de [`store/ficha-play-store.md`](store/ficha-play-store.md).
 - [ ] Cuestionarios: clasificación IARC, seguridad de datos y público objetivo (respuestas sugeridas en `store/ficha-play-store.md` — clave: es una herramienta de sorteos, sin dinero real ni apuestas).
