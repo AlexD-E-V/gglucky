@@ -59,7 +59,7 @@ Hecho con ❤ por Mizarium y EasySolution.
 | Categoría | Herramientas (o Entretenimiento) |
 | Precio | Gratis |
 | Correo de contacto | mizariumstudio@gmail.com |
-| Política de privacidad | URL de `privacy-policy.html` una vez hosteada |
+| Política de privacidad | `https://alexd-e-v.github.io/gglucky/privacy-policy.html` (requiere activar GitHub Pages) |
 
 *También puede declararse como Juego → Casual. "App → Herramientas" refuerza que es una utilidad de sorteos y evita cualquier asociación con apuestas.
 

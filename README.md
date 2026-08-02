@@ -21,6 +21,7 @@ Hecho por **Mizarium** y **EasySolution**.
 | App ID | `com.mizarium.gglucky` |
 | Íconos / splash | Generados por script: [`assets/build-icons.js`](assets/build-icons.js) |
 | Assets de Play Store | Generados por script: [`assets/build-store-assets.js`](assets/build-store-assets.js) → carpeta [`store/`](store/) |
+| Política de privacidad | [`privacy-policy.html`](privacy-policy.html) en la raíz — se sirve con GitHub Pages |
 
 ## Desarrollo
 
@@ -65,16 +66,20 @@ La firma requiere dos archivos que **no están en el repo** (ver `.gitignore`):
 - [x] App terminada y probada en dispositivo físico (v1.0.0, `versionCode 1`).
 - [x] Keystore de firma creado y `.aab` de release firmado y verificado.
 - [x] Cuenta de desarrollador de Google Play creada (personal) y pago de 25 USD realizado.
-- [x] Assets de la ficha generados en [`store/`](store/): ícono 512×512, gráfico destacado 1024×500, textos de la ficha ([`store/ficha-play-store.md`](store/ficha-play-store.md)) y política de privacidad ([`store/privacy-policy.html`](store/privacy-policy.html)).
+- [x] Identidad de la cuenta de desarrollador verificada por Google.
+- [x] Assets de la ficha generados en [`store/`](store/): ícono 512×512, gráfico destacado 1024×500 y textos de la ficha ([`store/ficha-play-store.md`](store/ficha-play-store.md)).
+- [x] Política de privacidad escrita ([`privacy-policy.html`](privacy-policy.html)).
+- [x] App creada en Play Console con el paquete `com.mizarium.gglucky`.
 
 **⏳ En curso — aquí nos quedamos**
-- [ ] **Google está verificando la identidad de la cuenta de desarrollador** (documentos subidos; puede tardar varios días). Sin esto no se puede crear la app en Play Console.
+- [ ] Activar **GitHub Pages** (repo → Settings → Pages → branch `main`, carpeta `/ (root)`) para publicar la política en `https://alexd-e-v.github.io/gglucky/privacy-policy.html`.
 
-**📋 Pendiente (en orden, cuando llegue la verificación)**
-- [ ] Hostear `store/privacy-policy.html` (GitHub Pages de este repo) para tener la URL que pide Play Console.
-- [ ] Sacar capturas de pantalla desde el teléfono (mínimo 2): ruleta principal, tablero tras una vuelta, modal de excluir números, overlay del ganador.
-- [ ] Crear la app en Play Console (español es-419, App, gratis) y completar la ficha con los textos de `store/ficha-play-store.md`.
+**📋 Pendiente (en este orden)**
+- [ ] Subir el `.aab` a **Pruebas internas**, aceptar **Play App Signing**, instalar desde Play y verificar que la build firmada arranca bien.
+- [ ] Sacar capturas de pantalla desde el teléfono (mínimo 2, mejor 4): ruleta principal, tablero tras una vuelta, modal de excluir números, overlay del ganador.
+- [ ] Completar la ficha de Play Store con los textos de [`store/ficha-play-store.md`](store/ficha-play-store.md).
 - [ ] Cuestionarios: clasificación IARC, seguridad de datos y público objetivo (respuestas sugeridas en `store/ficha-play-store.md` — clave: es una herramienta de sorteos, sin dinero real ni apuestas).
-- [ ] Subir el `.aab` a **Pruebas internas**, aceptar **Play App Signing**, instalar desde Play y verificar.
-- [ ] **Prueba cerrada obligatoria** (cuenta personal nueva): ~12 testers durante 14 días seguidos antes de poder pedir acceso a producción.
+- [ ] **Prueba cerrada obligatoria** (cuenta personal nueva): 12 testers durante 14 días seguidos antes de poder pedir acceso a producción. **Ir juntando los emails desde ya** — es el cuello de botella.
 - [ ] Promover a **Producción** y enviar a revisión (la primera revisión puede tardar hasta ~2 semanas).
+
+> ℹ️ La cuenta de desarrollador es **personal**, así que en la ficha aparecerá el nombre legal, no "Mizarium". Migrar a una cuenta de organización requiere D-U-N-S y una cuenta nueva (no se puede convertir la existente).
