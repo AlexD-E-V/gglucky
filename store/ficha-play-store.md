@@ -83,7 +83,12 @@ Hecho con ❤ por Mizarium y EasySolution.
 - ¿Se pueden solicitar borrado de datos? → No aplica (no se recopilan).
 
 **Público objetivo**
-- Edad: 13+ (recomendado para simplificar; declarar menores de 13 activa requisitos extra de "Diseñado para familias").
+- Grupos de edad: **16-17** y **A partir de 18 años**.
+- La casilla "Restringir el acceso a usuarios menores de edad" queda **sin marcar**.
+- Nota: marcar 13-15 no evita el aviso de política de familias (solo desaparece con 18+ a secas),
+  y además mete a los menores de 16 —niños bajo el RGPD en la UE— en la audiencia declarada, lo
+  que endurecería los requisitos de publicidad si más adelante se monetiza. Con piso en 16 se
+  cumple la política de familias por construcción: sin anuncios, sin datos, sin SDK de terceros.
 
 **Anuncios**
 - ¿Contiene anuncios? → **No.**
