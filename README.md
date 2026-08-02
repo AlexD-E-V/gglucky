@@ -101,4 +101,10 @@ La firma requiere dos archivos que **no están en el repo** (ver `.gitignore`):
 - [ ] **Prueba cerrada obligatoria** (cuenta personal nueva): 12 testers durante 14 días seguidos antes de poder pedir acceso a producción. **Ir juntando los emails desde ya** — es el cuello de botella.
 - [ ] Promover a **Producción** y enviar a revisión (la primera revisión puede tardar hasta ~2 semanas).
 
+## Planes a futuro
+
+Lo que viene después del lanzamiento (monetización con AdMob y su checklist de
+declaraciones, landing en GitHub Pages, ideas de producto) está en
+[`ROADMAP.md`](ROADMAP.md).
+
 > ℹ️ La cuenta de desarrollador es **personal**, así que en la ficha aparecerá el nombre legal, no "Mizarium". Migrar a una cuenta de organización requiere D-U-N-S y una cuenta nueva (no se puede convertir la existente).
