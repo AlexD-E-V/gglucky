@@ -76,15 +76,25 @@ La firma requiere dos archivos que **no están en el repo** (ver `.gitignore`):
 - [x] **Prueba interna publicada**: `.aab` subido, **Play App Signing aceptado**, app instalada desde Google Play en dispositivo físico y verificada funcionando. El keystore y la cadena de firma quedan validados.
 - [x] Capturas de pantalla tomadas desde la build instalada de Play.
 
-**⏳ En curso — aquí nos quedamos**
-- [ ] **Completar la ficha de Play Store**, en este orden:
-  1. Cambiar el idioma predeterminado a **Español (Latinoamérica) – es-419** y quitar `en-US`
-     (desplegable de idioma → **Gestionar idiomas**). El cambio no persiste hasta guardar.
-  2. Pegar los textos de [`store/ficha-play-store.md`](store/ficha-play-store.md) y subir ícono,
-     gráfico destacado y capturas.
+- [x] **Ficha de Play Store completa** en es-419: nombre, descripciones, ícono, gráfico destacado,
+      6 capturas de teléfono y 4 de tablet (7" y 10"). Las de tablet se generan a partir de capturas
+      del navegador — ver [`store/screenshots/`](store/screenshots/).
+- [x] **Contenido de la aplicación**: política de privacidad, datos de inicio de sesión (sin
+      restricciones), anuncios (no), **clasificación IARC → apta para todos (3+) sin descriptores
+      en las 7 regiones**, público objetivo (16-17 y 18+) y seguridad de datos (no se recopilan).
 
-**📋 Pendiente (en este orden)**
-- [ ] **Contenido de la aplicación** (sección aparte de la ficha): URL de política de privacidad, acceso a la app, anuncios, clasificación IARC, público objetivo y seguridad de datos. Respuestas sugeridas en `store/ficha-play-store.md`.
+- [x] **Prueba cerrada publicada y aprobada por Google** (canal "Alpha", 177 países, lista
+      `Testers Roulette`, canal de comentarios `mizariumstudio@gmail.com`). Envío 1 con 15 cambios:
+      enviado el 2 ago 2026 16:51, publicado 17:09 — **18 minutos**. Los enlaces de participación
+      ya están activos en **Prueba cerrada → Testers**.
+
+**⏳ En curso — aquí nos quedamos**
+- [ ] **Conseguir 12 testers** que acepten la invitación e instalen (van 2). Estar en la lista de
+      correos NO cuenta: el contador solo sube cuando la persona acepta e instala.
+- [ ] Mantener los 12 instalados **14 días corridos**. Si alguien desinstala y se baja de 12, se
+      rompe la continuidad.
+- [ ] Recoger comentarios de los testers durante esas dos semanas — la solicitud de acceso a
+      producción pregunta cómo se obtuvo y qué se hizo con ese feedback.
 - [ ] Sacar capturas de pantalla desde el teléfono (mínimo 2, mejor 4): ruleta principal, tablero tras una vuelta, modal de excluir números, overlay del ganador.
 - [ ] Completar la ficha de Play Store con los textos de [`store/ficha-play-store.md`](store/ficha-play-store.md).
 - [ ] Cuestionarios: clasificación IARC, seguridad de datos y público objetivo (respuestas sugeridas en `store/ficha-play-store.md` — clave: es una herramienta de sorteos, sin dinero real ni apuestas).
