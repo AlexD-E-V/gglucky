@@ -70,12 +70,14 @@ La firma requiere dos archivos que **no están en el repo** (ver `.gitignore`):
 - [x] Assets de la ficha generados en [`store/`](store/): ícono 512×512, gráfico destacado 1024×500 y textos de la ficha ([`store/ficha-play-store.md`](store/ficha-play-store.md)).
 - [x] Política de privacidad escrita ([`privacy-policy.html`](privacy-policy.html)).
 - [x] App creada en Play Console con el paquete `com.mizarium.gglucky`.
+- [x] **GitHub Pages activado** — política de privacidad publicada y verificada en
+      <https://alexd-e-v.github.io/gglucky/privacy-policy.html>
 
 **⏳ En curso — aquí nos quedamos**
-- [ ] Activar **GitHub Pages** (repo → Settings → Pages → branch `main`, carpeta `/ (root)`) para publicar la política en `https://alexd-e-v.github.io/gglucky/privacy-policy.html`.
+- [ ] Subir el `.aab` a **Pruebas internas**, aceptar **Play App Signing**, instalar desde Play y verificar que la build firmada arranca bien.
 
 **📋 Pendiente (en este orden)**
-- [ ] Subir el `.aab` a **Pruebas internas**, aceptar **Play App Signing**, instalar desde Play y verificar que la build firmada arranca bien.
+- [ ] Ficha aún en **`en-US`**: cambiar el idioma predeterminado a **Español (Latinoamérica) – es-419** y quitar `en-US` (desplegable de idioma → **Gestionar idiomas**). El cambio no persiste hasta guardar, y puede que Play exija la ficha es-419 completa antes de aceptarlo como predeterminado — en ese caso se hace junto con el llenado de la ficha.
 - [ ] Sacar capturas de pantalla desde el teléfono (mínimo 2, mejor 4): ruleta principal, tablero tras una vuelta, modal de excluir números, overlay del ganador.
 - [ ] Completar la ficha de Play Store con los textos de [`store/ficha-play-store.md`](store/ficha-play-store.md).
 - [ ] Cuestionarios: clasificación IARC, seguridad de datos y público objetivo (respuestas sugeridas en `store/ficha-play-store.md` — clave: es una herramienta de sorteos, sin dinero real ni apuestas).
