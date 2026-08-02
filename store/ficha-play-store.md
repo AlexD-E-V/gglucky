@@ -37,7 +37,7 @@ Ruleta de sorteos y rifas: gira, elimina números y descubre al ganador.
 • Tablero de números en vivo: mira quién sigue en juego y quién quedó eliminado.
 • Exclusión de números interactiva, con selección por arrastre.
 • Nombres opcionales para cada número: el ganador aparece con su nombre.
-• Música y efectos de sonido con ambiente de casino de feria.
+• Música y efectos de sonido con ambiente de feria y show en vivo.
 • Animaciones fluidas, luces y confeti para el ganador.
 
 📴 100% OFFLINE Y SIN DATOS
