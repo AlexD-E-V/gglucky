@@ -88,13 +88,24 @@ La firma requiere dos archivos que **no están en el repo** (ver `.gitignore`):
       enviado el 2 ago 2026 16:51, publicado 17:09 — **18 minutos**. Los enlaces de participación
       ya están activos en **Prueba cerrada → Testers**.
 
+- [x] **12 testers aceptados** en la prueba cerrada. El conteo de 14 días arranca solo, sin botón.
+
 **⏳ En curso — aquí nos quedamos**
-- [ ] **Conseguir 12 testers** que acepten la invitación e instalen (van 2). Estar en la lista de
-      correos NO cuenta: el contador solo sube cuando la persona acepta e instala.
-- [ ] Mantener los 12 instalados **14 días corridos**. Si alguien desinstala y se baja de 12, se
-      rompe la continuidad.
-- [ ] Recoger comentarios de los testers durante esas dos semanas — la solicitud de acceso a
-      producción pregunta cómo se obtuvo y qué se hizo con ese feedback.
+- [ ] Mantener los 12 inscritos **14 días continuos**. Los cortes **descalifican al tester**: si
+      alguien desinstala o se sale, deja de contar y hay que reemplazarlo.
+- [ ] Pedirles que **usen** la app, no solo que la tengan instalada — Google evalúa la interacción
+      real de los testers, no la mera instalación.
+- [ ] Recoger feedback y **aplicar al menos un cambio** salido de él, subiéndolo como `versionCode 2`
+      a la prueba cerrada.
+- [ ] Solicitar acceso a producción. El formulario tiene tres bloques
+      ([criterios](https://support.google.com/googleplay/android-developer/answer/14151465)):
+      1. **Sobre la prueba**: facilidad para reclutar, cómo interactuaron los testers, resumen del
+         feedback y método de recolección.
+      2. **Sobre la app**: público objetivo, propuesta de valor, proyección de instalaciones a un año.
+      3. **Preparación**: qué se cambió a partir del feedback y por qué está lista.
+      > El bloque 3 es el que exige haber hecho algo durante la prueba: sin cambios derivados del
+      > feedback, esa respuesta queda vacía y es causa habitual de rechazo.
+- [ ] Revisión de la solicitud: ~7 días o menos. Si la rechazan, hay que seguir testeando.
 - [ ] Sacar capturas de pantalla desde el teléfono (mínimo 2, mejor 4): ruleta principal, tablero tras una vuelta, modal de excluir números, overlay del ganador.
 - [ ] Completar la ficha de Play Store con los textos de [`store/ficha-play-store.md`](store/ficha-play-store.md).
 - [ ] Cuestionarios: clasificación IARC, seguridad de datos y público objetivo (respuestas sugeridas en `store/ficha-play-store.md` — clave: es una herramienta de sorteos, sin dinero real ni apuestas).
